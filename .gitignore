@@ -1,6 +1,12 @@
 __pycache__/
 .venv
+.env
+*.pyc
 env/
 venv/
+
+
+# algo mio
+.t.txt
 
 

@@ -1,0 +1,1 @@
+# La idea es separar las rutas a modo de MVC, me tengo que acordar. Primero que ande todo, despues lo ordeno. 
