@@ -8,5 +8,6 @@ venv/
 
 # algo mio
 .t.txt
+.vscode/
 
 
