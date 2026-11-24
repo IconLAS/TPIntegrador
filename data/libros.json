@@ -1,1 +1,23 @@
-[{"id": 1, "titulo": "El Psicoanalista", "autor": "Jhon Katzqnbach", "anio": 2002, "disponible": true}]
+[
+  [
+    {
+      "max_id": 3
+    }
+  ],
+  [
+    {
+      "id": 1,
+      "titulo": "El Señor de Los Anillos",
+      "autor": "J.R.R. Tolkien",
+      "anio": 1954,
+      "disponible": false
+    },
+    {
+      "id": 3,
+      "titulo": "El Extranjero",
+      "autor": "Albert Camus",
+      "anio": 1942,
+      "disponible": true
+    }
+  ]
+]

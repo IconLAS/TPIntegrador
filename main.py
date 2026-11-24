@@ -14,14 +14,15 @@ DATA_DIR.mkdir(exist_ok=True) # Asegura que el directorio es creado solo si no e
 try:
     with open("./data/libros.json", "r", encoding="utf-8") as f:
         datos = json.load(f)
-    [{"max_id": max_id}], libros = datos
-except (FileNotFoundError, json.JSONDecodeError, ValueError, TypeError, KeyError):
+    control, libros = datos
+    max_id = control[0]["max_id"]
+except (FileNotFoundError, json.JSONDecodeError, ValueError, TypeError, KeyError, IndexError):
     max_id = 0
     libros = []
 
 
 def guardar_datos():
-    datos = [[{"max_id": max_id}], libros]
+    datos = [[{"max_id": max_id}],libros]
     with open("./data/libros.json", "w", encoding="utf-8") as f:
         json.dump(datos, f, indent=2, ensure_ascii=False)
 # Clase Libro con Pydantic 
@@ -33,6 +34,8 @@ class Libro(BaseModel):
     anio: int= Field(strict=False, ge=1000, le=2100)
     disponible: bool = True  
 
+class LibroPUT(Libro):
+    disponible: bool # Si  
 # Rutas del método GET
 
 @app.get("/")
@@ -51,13 +54,11 @@ def traer_libro_por_id(id):
             return l       
     raise HTTPException(status_code=404, detail="No se encuentra libro con ese id")
 
-def guardar_datos(libros:list):
-     with open('./data/libros.json', 'w', encoding='utf-8') as f: # Se crea el archivo
-        json.dump(libros, f)
 # ---------------------Rutas del método POST--------------------------------------------------
 @app.post("/libros", status_code=201)
 def crear_libro(libro: Libro):
     global max_id
+    
     for l in libros:
         if (l["titulo"].lower().strip() == libro.titulo.lower().strip()
                 and l["autor"].lower().strip() == libro.autor.lower().strip()):
@@ -79,29 +80,26 @@ def buscar_libro_por_id(id:int):
         
 
 # --------------------------------Ruta DELETE------------------------------------------------
-@app.delete("/libros/{id}")
+@app.delete("/libros/{id}", status_code=204)
 def eliminar_libro(id: int):
-    libro = buscar_libro_por_id(id)
+    libro= traer_libro_por_id(id)
     libros.remove(libro)
     guardar_datos()
-    return {"mensaje": "Libro eliminado"}
+    return 
     
-
-
-
-
-
-
-
-
 # --------------------------------Ruta PUT---------------------------------------------------
-@app.put("/libros/{id}")
+@app.put("/libros/{id}", status_code=200)
 
-def sobreescribir_libro(id:int, datos:Libro):
-        for l in libros:
-                buscar_por_id(id)
-                l= datos.model_dump()
-                raise HTTPException(404, "Ese libro no se encuentra")
+def modificar_libro(id:int, datos:Libro):
+    libro=traer_libro_por_id(id)
+    libro.update(datos.model_dump())
+    guardar_datos()
+    return libro
+
+
+
+            
+    
         
           
                 
