@@ -12,14 +12,18 @@ DATA_DIR = Path('data') # Nombra la carpeta del archivo .json
 
 DATA_DIR.mkdir(exist_ok=True) # Asegura que el directorio es creado solo si no existe, en cuanto al archivo,. su existencia se maneja abajo.
 try:
-        with open("./data/libros.json", "r", encoding="utf-8") as f: #Verifica la existencia
-            libros = json.load(f) #carga la variable, por defecto es una lista vacía
-except (FileNotFoundError, json.JSONDecodeError): # Si no está donde se espera/no existe, o está vacío.
-    datos = [[{"max_id":0 }], ["libros"]] #se inicia en memoria, se vuelve a cargar con cada peticion de arriba.
-    with open('./data/libros.json', 'w', encoding='utf-8') as f: # Se crea el archivo
-            json.dump(datos, f) #Se carga con una lista vacía. Esto se actualiza cada vez que se pierde ./data
-datos= ["max_id", libros]
+    with open("./data/libros.json", "r", encoding="utf-8") as f:
+        datos = json.load(f)
+    [{"max_id": max_id}], libros = datos
+except (FileNotFoundError, json.JSONDecodeError, ValueError, TypeError, KeyError):
+    max_id = 0
+    libros = []
 
+
+def guardar_datos():
+    datos = [[{"max_id": max_id}], libros]
+    with open("./data/libros.json", "w", encoding="utf-8") as f:
+        json.dump(datos, f, indent=2, ensure_ascii=False)
 # Clase Libro con Pydantic 
          
 
@@ -51,24 +55,18 @@ def guardar_datos(libros:list):
      with open('./data/libros.json', 'w', encoding='utf-8') as f: # Se crea el archivo
         json.dump(libros, f)
 # ---------------------Rutas del método POST--------------------------------------------------
-@app.post("/libros")
+@app.post("/libros", status_code=201)
 def crear_libro(libro: Libro):
-    
-    for l in libros: #Se recorren los libros y a cada uno se le asigna un
-        autor_nuevo_normalizado, autor_guardado_normalizado= libro.autor.lower().strip(),l["autor"].lower().strip() 
-        titulo_nuevo_normalizado, titulo_guardado_normalizado= libro.titulo.lower().strip(), l["titulo"].lower().strip()  
-
-        # se verifica que no haya coincidencia en autor/titulo
-        if titulo_guardado_normalizado != titulo_nuevo_normalizado and autor_guardado_normalizado != autor_nuevo_normalizado:
-         raise HTTPException(status_code=409, detail="Ese libro ya se encuentra registrado") 
-    # Id no se pasa por parametro
-    # se definio previamente la variable que lo maneja linea 28
-    
-    nuevo_libro = {"id": id_count, **libro.model_dump()}
+    global max_id
+    for l in libros:
+        if (l["titulo"].lower().strip() == libro.titulo.lower().strip()
+                and l["autor"].lower().strip() == libro.autor.lower().strip()):
+            raise HTTPException(status_code=409, detail="Ese libro ya se encuentra registrado")
+    max_id += 1
+    nuevo_libro = {"id": max_id, **libro.model_dump()}
     libros.append(nuevo_libro)
-    guardar_datos(libros)
-
-    return HTTPException(201, nuevo_libro)
+    guardar_datos()
+    return nuevo_libro
     
 
 # ---------------------Rutas con Variables----------------------------------------------------
@@ -82,12 +80,11 @@ def buscar_libro_por_id(id:int):
 
 # --------------------------------Ruta DELETE------------------------------------------------
 @app.delete("/libros/{id}")
-def eliminar_libro(id:int):
-    global id_count
-    libro_a_borrar=traer_libro_por_id(id) 
-    libros.remove(libro_a_borrar)
-    id_count +1
-    guardar_datos(libros)
+def eliminar_libro(id: int):
+    libro = buscar_libro_por_id(id)
+    libros.remove(libro)
+    guardar_datos()
+    return {"mensaje": "Libro eliminado"}
     
 
 
