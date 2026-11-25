@@ -5,7 +5,7 @@ __pycache__/
 env/
 venv/
 
-data/
+datos/
 # algo mio
 .t.txt
 .vscode/
