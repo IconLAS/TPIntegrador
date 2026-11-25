@@ -1,0 +1,16 @@
+[
+  {
+    "id": 2,
+    "titulo": "Bestiario",
+    "autor": "Julio Cortázar",
+    "anio": 1951,
+    "disponible": true
+  },
+  {
+    "id": 3,
+    "titulo": "El Aleph",
+    "autor": "Jorge Luis Borges",
+    "anio": 1949,
+    "disponible": false
+  }
+]
