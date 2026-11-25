@@ -12,5 +12,138 @@
     "autor": "Jorge Luis Borges",
     "anio": 1949,
     "disponible": false
+  },
+  {
+    "id": 4,
+    "titulo": "Libro del futuro",
+    "autor": "Autor Anonimo",
+    "anio": 2100,
+    "disponible": true
+  },
+  {
+    "id": 5,
+    "titulo": "Ubik",
+    "autor": "Philip K. Dick",
+    "anio": 1969,
+    "disponible": false
+  },
+  {
+    "id": 6,
+    "titulo": "La casa de los espiritus",
+    "autor": "Isabel Allende",
+    "anio": 1982,
+    "disponible": true
+  },
+  {
+    "id": 7,
+    "titulo": "La tregua",
+    "autor": "Mario Benedetti",
+    "anio": 1960,
+    "disponible": true
+  },
+  {
+    "id": 8,
+    "titulo": "La metamorfosis",
+    "autor": "Franz Kafka",
+    "anio": 1915,
+    "disponible": false
+  },
+  {
+    "id": 9,
+    "titulo": "Un mundo feliz",
+    "autor": "Aldous Huxley",
+    "anio": 1932,
+    "disponible": false
+  },
+  {
+    "id": 10,
+    "titulo": "Fahrenheit 451",
+    "autor": "Ray Bradbury",
+    "anio": 1953,
+    "disponible": true
+  },
+  {
+    "id": 11,
+    "titulo": "El problema de los tres cuerpos",
+    "autor": "Liu Cixin",
+    "anio": 2008,
+    "disponible": false
+  },
+  {
+    "id": 12,
+    "titulo": "Cita con Rama",
+    "autor": "Arthur C. Clarke",
+    "anio": 1973,
+    "disponible": true
+  },
+  {
+    "id": 13,
+    "titulo": "Dune",
+    "autor": "Frank Herbert",
+    "anio": 1965,
+    "disponible": false
+  },
+  {
+    "id": 14,
+    "titulo": "Fundacion",
+    "autor": "Isaac Asimov",
+    "anio": 1951,
+    "disponible": true
+  },
+  {
+    "id": 15,
+    "titulo": "La Odisea",
+    "autor": "Homero",
+    "anio": 1000,
+    "disponible": true
+  },
+  {
+    "id": 16,
+    "titulo": "Frankenstein",
+    "autor": "Mary Shelley",
+    "anio": 1818,
+    "disponible": false
+  },
+  {
+    "id": 17,
+    "titulo": "1984",
+    "autor": "George Orwell",
+    "anio": 1949,
+    "disponible": true
+  },
+  {
+    "id": 18,
+    "titulo": "El tunel",
+    "autor": "Ernesto Sabato",
+    "anio": 1948,
+    "disponible": false
+  },
+  {
+    "id": 20,
+    "titulo": "Don Quijote de la Mancha",
+    "autor": "Miguel de Cervantes",
+    "anio": 1605,
+    "disponible": true
+  },
+  {
+    "id": 21,
+    "titulo": "Rayuela",
+    "autor": "Julio Cortazar",
+    "anio": 1963,
+    "disponible": false
+  },
+  {
+    "id": 23,
+    "titulo": "Cien años de soledad",
+    "autor": "Gabriel Garcia Marquez",
+    "anio": 1967,
+    "disponible": true
+  },
+  {
+    "id": 24,
+    "titulo": "Amanecer",
+    "autor": "Stephanie Meyer",
+    "anio": 2008,
+    "disponible": false
   }
 ]
